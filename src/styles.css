@@ -1,1 +1,151 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary-blue: #3069a7;
+  --primary-red: #b13c37;
+  --light-bg-grey: #f3f3f3;
+  --primary-grey: #606060;
+}
+
+@font-face {
+  font-family: "poppins-medium";
+  src: url("assets/fonts/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "poppins-regular";
+  src: url("assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "poppins-light";
+  src: url("assets/fonts/Poppins-Light.ttf");
+}
+
+@font-face {
+  font-family: "poppins-bold";
+  src: url("assets/fonts/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: "poppins-semi-bold";
+  src: url("assets/fonts/Poppins-SemiBold.ttf");
+}
+
+* {
+  box-sizing: border-box;
+}
+html,body {
+  font-family: poppins-regular;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  position: relative;
+  color: var(--primary-grey);
+}
+::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  border-radius: 5px;
+  width: 3.5px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 3.5px;
+  height: 3.5px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  width: 3.5px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background-color: var(--primary-grey);
+}
+
+p {
+  margin-top: 0rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.transparent-form-field-container {
+  width: 100%;
+  display: flex;
+  border: 1px solid var(--light-bg-grey);
+  border-radius: .75rem;
+  padding: .85rem .75rem;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+  padding: .25rem .75rem;
+  border-radius: .5rem;
+  font-size: .85rem;
+  font-family: poppins-regular;
+  color: var(--primary-grey);
+}
+
+.form-field-transparent {
+  background-color: transparent;
+  border: none;
+  padding: 0rem !important;
+}
+
+.form-field-bordered {
+  border: 1px solid var(--light-bg-grey);
+}
+
+input:focus, textarea:focus, select:focus, *:focus{
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0) !important;
+}
+input:focus, textarea:focus, select:focus{
+  background-color: transparent !important;
+}
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+label {
+  font-size: .85rem;
+}
+button {
+  text-align: center;
+  border-radius: .5rem;
+  padding: .25rem .75rem;
+  font-size: .8rem;
+  font-family: poppins-regular;
+  border: none;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+.primary-color-btn:disabled {
+  background-color: var(--primary-grey);
+}
+.primary-color-btn {
+  background-color: var(--primary-blue);
+  color: white;
+}
+.error {
+  color: var(--primary-red);
+  margin: .25rem 0rem;
+  font-family: poppins-medium;
+}
+small {
+  font-size: .65rem;
+}

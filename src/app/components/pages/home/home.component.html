@@ -1,0 +1,110 @@
+<div *ngIf="!isLoading" class="home-container">
+  <app-header [title]="title"></app-header>
+  <div class="home-inner-container">
+    <div class="home-card shadow-sm">
+      <!-- <div *ngIf="showUserList" class="list-view" id="user-list">
+        <ul id="ul">
+          <li *ngFor="let user of users; let j = index;" (click)="setSelectedUser(j)" class="item-row">
+            <i class="fas fa-user-circle circle-icon"></i>
+            <div class="item-inner-row">
+              <p class="item-inner-row-name">{{user.firstName + ' ' + user.lastName | elipses30}}</p>
+              <p class="item-inner-row-symptoms"><span style="margin-right: .5rem; text-transform: capitalize;"
+                  *ngFor="let symptom of user.symptoms; let i = index;">{{i == user.symptoms.length - 1 ?
+                  symptom.name : symptom.name+','}}</span></p>
+            </div>
+          </li>
+        </ul>
+      </div> -->
+      <div class="content-view" id="user-content">
+        <!-- <div (click)="goBack()" id="goBack" class="mobile-arrow-container">
+          <i class="fas fa-arrow-circle-left"></i>
+        </div> -->
+        <div class="content-top-title-container">
+          <!-- <p class="content-top-title">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Record</p> -->
+          <p class="content-top-title">Document Details</p>
+          <div class="icon-container">
+            <i *ngIf="!isEditMode" id="showEditOption" class="fas fa-bars" style="cursor: pointer;"
+              (click)="toggleDropdown()"></i>
+            <div *ngIf="showDropdown" class="dropdown-menu shadow-sm">
+              <p (click)="setEditMode()" id="editActive" class="dropdown-menu-item">Edit</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-inner-container">
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">First Name</label>
+              </div>
+              <div class="form-col">
+                <p *ngIf="!isEditMode" class="text" id="firstName">{{selectedUser.firstName}}</p>
+                <div class="input-group">
+                  <input *ngIf="isEditMode" [(ngModel)]="formData.firstName" id="firstNameInput" name="firstName"
+                    type="text" class="form-field form-field-bordered">
+                  <small class="error" *ngIf="!formData.firstName">First Name is required</small>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">Last Name</label>
+              </div>
+              <div class="form-col">
+                <p *ngIf="!isEditMode" id="lastName" class="text">{{selectedUser.lastName}}</p>
+                <div class="input-group">
+                  <input *ngIf="isEditMode" [(ngModel)]="formData.lastName" name="lastName" id="lastNameInput"
+                    type="text" class="form-field form-field-bordered">
+                  <small class="error" *ngIf="!formData.lastName">Last Name is required</small>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">Gender</label>
+              </div>
+              <div class="form-col">
+                <p *ngIf="!isEditMode" id="gender" class="text">{{selectedUser.gender.name}}</p>
+                <div class="input-group">
+                  <select *ngIf="isEditMode" [(ngModel)]="formData.gender.id" (change)="setSelectedGender($event)"
+                    id="editableGender" name="gender" class="form-field form-field-bordered">
+                    <option [value]="data.id" *ngFor="let data of genderArray" style="text-transform: capitalize;">
+                      {{data.name}}</option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">Symptoms</label>
+              </div>
+              <div class="form-col">
+                <div *ngIf="!isEditMode" id="multipleSelect" class="tile-col">
+                  <div *ngFor="let data of selectedUser.symptoms" class="tile">{{data.name}}</div>
+                </div>
+                <div *ngIf="isEditMode" id="multipleSelectEdit" class="multiple-select">
+                  <div *ngFor="let data of symptomsArray" (click)="setSelectedSymptoms(data)"
+                    [ngClass]="(symptomIdArray.includes(data.id)) ? 'active-bg' : ''" class="multiple-select-item">
+                    <p style="margin-bottom: 0rem;">{{data.name}}</p>
+                    <i *ngIf="symptomIdArray.includes(data.id)" class="far fa-check-circle"></i>
+                  </div>
+                </div>
+                <small id="requiredSymptoms" class="error" *ngIf="formData.symptoms.length == 0">Symptoms are
+                  required</small>
+              </div>
+            </div>
+            <div *ngIf="isEditMode" class="button-row">
+              <button id="clickButton" *ngIf="!isProcessing" (click)="submitData()"
+                [disabled]="!formData.firstName || !formData.lastName || !formData.gender.id || formData.symptoms.length == 0"
+                class="primary-color-btn">Submit</button>
+              <button id="processButton" *ngIf="isProcessing" class="primary-color-btn" disabled>Processing...</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="isLoading"></app-loader>

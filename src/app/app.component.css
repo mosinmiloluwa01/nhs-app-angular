@@ -1,0 +1,6 @@
+.full-width {
+  display: flex;
+  flex-direction: column; /*specifies main axis to be vertical*/
+  /* justify-content: space-between; */
+  /* align-items: center; */
+}
