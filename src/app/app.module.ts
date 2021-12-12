@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { HeaderComponent } from './components/reusables/header/header.component';
-import { ElipsesPipeFifty, ElipsesPipeThirty, ElipsesPipeTwenty } from './services/pipes';
+import { ElipsesPipeFifty, ElipsesPipeThirty, ElipsesPipeTwenty, SentenceCasePipe } from './services/pipes';
 import { LoaderComponent } from './components/reusables/loader/loader.component';
 
 @NgModule({
@@ -21,6 +21,7 @@ import { LoaderComponent } from './components/reusables/loader/loader.component'
     ElipsesPipeFifty,
     ElipsesPipeThirty,
     ElipsesPipeTwenty,
+    SentenceCasePipe,
     LoaderComponent
   ],
   imports: [

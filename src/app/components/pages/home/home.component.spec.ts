@@ -8,7 +8,7 @@ import { HomeComponent } from './home.component';
 import { DebugElement } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 import { of } from 'rxjs';
-import { ElipsesPipeFifty, ElipsesPipeThirty, ElipsesPipeTwenty } from 'src/app/services/pipes';
+import { ElipsesPipeFifty, ElipsesPipeThirty, ElipsesPipeTwenty, SentenceCasePipe } from 'src/app/services/pipes';
 import { HeaderComponent } from '../../reusables/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from '../../reusables/loader/loader.component';
@@ -40,7 +40,8 @@ describe('HomeComponent', () => {
           name: "nausea"
         }
       ],
-      id: 1
+      id: 1,
+      extra: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     }
   ]
 
@@ -94,7 +95,8 @@ describe('HomeComponent', () => {
         LoaderComponent,
         ElipsesPipeFifty,
         ElipsesPipeThirty,
-        ElipsesPipeTwenty
+        ElipsesPipeTwenty,
+        SentenceCasePipe
       ],
       imports: [
         FormsModule,
@@ -210,7 +212,6 @@ describe('HomeComponent', () => {
       expect(component.selectedUser).toEqual(component.formData);
     })
   })
-
   it('should disable button and show validation error message if any editable field is empty', async () => {
     let showToggler = fixture.debugElement.nativeElement.querySelector('#showEditOption')
     let dropdownMenuItem = fixture.debugElement.nativeElement.querySelector('#dropdown-menu-item')

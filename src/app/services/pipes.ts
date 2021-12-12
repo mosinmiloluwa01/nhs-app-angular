@@ -30,3 +30,13 @@ export class ElipsesPipeFifty implements PipeTransform {
     return value;
   }
 }
+@Pipe({ name: 'sentenceCase' })
+export class SentenceCasePipe implements PipeTransform {
+  transform(value: any) {
+    if (value) {
+      value = value.replace(/_/g, ' ');
+      return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    }
+    return value;
+  }
+}

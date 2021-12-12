@@ -66,7 +66,7 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px dashed var(--light-bg-grey);
-  padding: 1rem 0rem;
+  padding: .7rem 0rem;
   width: 100%;
 }
 .form-col {
@@ -220,6 +220,7 @@ ul {
   justify-content: center;
   width: 100%;
   align-items: center;
+  margin-top: .5rem;
 }
 .mobile-arrow-container {
   display: none;
@@ -256,13 +257,28 @@ ul {
     color: var(--primary-blue);
     width: 100%;
   }
+  .text {
+    text-align: justify;
+  }
+  .form-row {
+    flex-direction: column;
+  }
+  .form-col {
+    width: 100%;
+  }
+  .form-field, .text {
+    margin-top: .5rem;
+  }
+  p, .text, label, .tile, .content-top-title, .form-field, .dropdown-menu-item, i, button {
+    font-size: 1.05rem;
+  }
 }
 @media only screen and (min-width: 700px) and (max-width:1023px){
   .title {
     font-size: 1.3rem;
   }
   p {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
   }
   .gender-col {
     width: 20%;
@@ -274,6 +290,15 @@ ul {
   }
   .home-inner-container {
     padding: 0rem;
+  }
+  .text, label, .tile, .content-top-title, .form-field, .dropdown-menu-item {
+    font-size: 1.35rem;
+  }
+  .form-row {
+    padding: 1rem 0rem;
+  }
+  button {
+    font-size: 1.25rem;
   }
 }
 @media only screen and (min-width: 1024px) and (max-width:1029px){
@@ -281,7 +306,7 @@ ul {
     font-size: 1.5rem;
   }
   p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   .gender-col {
     width: 20%;
@@ -293,6 +318,15 @@ ul {
   }
   .home-inner-container {
     padding: 0rem;
+  }
+  .text, label, .tile, .content-top-title, .form-field, .dropdown-menu-item {
+    font-size: 1.5rem;
+  }
+  .form-row {
+    padding: 1rem 0rem;
+  }
+  button {
+    font-size: 1.4rem;
   }
 
 }

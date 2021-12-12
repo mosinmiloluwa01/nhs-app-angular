@@ -103,10 +103,26 @@
                   required</small>
               </div>
             </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label for="">Medical History <span style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red);"
+                    *ngIf="isEditMode">*</span></label>
+              </div>
+              <div class="form-col">
+                <p *ngIf="!isEditMode" style="text-transform: unset; word-break: break-all;" class="text" id="textarea">
+                  {{selectedUser.extra |
+                  sentenceCase}}</p>
+                <div class="input-group">
+                  <textarea *ngIf="isEditMode" [(ngModel)]="formData.extra" id="textAreaInput" name="textAreaInput"
+                    type="text" class="form-field form-field-bordered" style="text-transform: unset;"></textarea>
+                  <small id="textAreaError" class="error" *ngIf="!formData.extra">Medical History is required</small>
+                </div>
+
+              </div>
+            </div>
             <div [style.visibility]="!isEditMode? 'hidden': 'visible'" id="button-row" class="button-row">
-              <button id="clickButton" *ngIf="!isProcessing" (click)="submitData()"
-                [disabled]="!formData.firstName || !formData.lastName || !formData.gender.id || formData.symptoms.length == 0"
-                class="primary-color-btn">Submit</button>
+              <button id="clickButton" *ngIf="!isProcessing" (click)="submitData()" [disabled]="!formData.firstName || !formData.lastName 
+                || formData.symptoms.length == 0 || !formData.extra" class="primary-color-btn">Submit</button>
               <button id="processButton" *ngIf="isProcessing" class="primary-color-btn" disabled>Processing...</button>
             </div>
           </div>
