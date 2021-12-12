@@ -102,7 +102,6 @@ export class HomeComponent implements OnInit {
   getResponsiveMeasurment() {
     this.utilsService.currentDeviceType.subscribe(data => {
       this.deviceType = data
-      console.log('devicetype>>', this.deviceType)
       this.showContent()
     })
   }
@@ -144,13 +143,11 @@ export class HomeComponent implements OnInit {
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown
-    console.log('toggledropdown called>>', this.showDropdown)
   }
 
   setEditMode() {
     this.isEditMode = true
     this.toggleDropdown()
-    console.log('seteditmode called>>', this.showDropdown)
   }
 
   setSelectedGender(data: any) {
@@ -170,7 +167,6 @@ export class HomeComponent implements OnInit {
   submitData() {
     this.isProcessing = true;
     this.dataService.editUser(this.formData).subscribe((data: any) => {
-      console.log('data from submit>>>', data)
       this.isProcessing = false
       this.selectedUser = this.formData;
       this.isEditMode = false;
@@ -192,7 +188,6 @@ export class HomeComponent implements OnInit {
       txtValue = li[i].innerText.toUpperCase();
       if (txtValue.includes(this.filter.toUpperCase())) {
         li[i].parentNode.style.setProperty('display', 'flex', 'important');
-        console.log('textvalue>>>', li[i].innerText.toUpperCase(), txtValue.includes(this.filter.toUpperCase()))
       } else {
         li[i].parentNode.style.setProperty('display', 'none', 'important');
       }

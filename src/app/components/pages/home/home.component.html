@@ -21,12 +21,16 @@
         </div> -->
         <div class="content-top-title-container">
           <!-- <p class="content-top-title">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Record</p> -->
-          <p class="content-top-title">Document Details</p>
+          <p class="content-top-title">Document Details <span
+              style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red); font-size: .85rem;"
+              *ngIf="isEditMode">(Asterisked (*) fields are
+              mandatory)</span></p>
           <div class="icon-container">
             <i *ngIf="!isEditMode" id="showEditOption" class="fas fa-bars" style="cursor: pointer;"
               (click)="toggleDropdown()"></i>
-            <div *ngIf="showDropdown" class="dropdown-menu shadow-sm">
-              <p (click)="setEditMode()" id="editActive" class="dropdown-menu-item">Edit</p>
+            <div [style.visibility]="!showDropdown? 'hidden': 'visible'" id="dropdown-menu"
+              class="dropdown-menu shadow-sm">
+              <p (click)="setEditMode()" id="dropdown-menu-item" class="dropdown-menu-item">Edit</p>
             </div>
           </div>
         </div>
@@ -34,21 +38,23 @@
           <div class="form-inner-container">
             <div class="form-row">
               <div class="form-col">
-                <label for="">First Name</label>
+                <label for="">First Name <span style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red);"
+                    *ngIf="isEditMode">*</span></label>
               </div>
               <div class="form-col">
                 <p *ngIf="!isEditMode" class="text" id="firstName">{{selectedUser.firstName}}</p>
                 <div class="input-group">
                   <input *ngIf="isEditMode" [(ngModel)]="formData.firstName" id="firstNameInput" name="firstName"
                     type="text" class="form-field form-field-bordered">
-                  <small class="error" *ngIf="!formData.firstName">First Name is required</small>
+                  <small id="firstNameError" class="error" *ngIf="!formData.firstName">First Name is required</small>
                 </div>
 
               </div>
             </div>
             <div class="form-row">
               <div class="form-col">
-                <label for="">Last Name</label>
+                <label for="">Last Name <span style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red);"
+                    *ngIf="isEditMode">*</span></label>
               </div>
               <div class="form-col">
                 <p *ngIf="!isEditMode" id="lastName" class="text">{{selectedUser.lastName}}</p>
@@ -62,7 +68,8 @@
             </div>
             <div class="form-row">
               <div class="form-col">
-                <label for="">Gender</label>
+                <label for="">Gender <span style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red);"
+                    *ngIf="isEditMode">*</span></label>
               </div>
               <div class="form-col">
                 <p *ngIf="!isEditMode" id="gender" class="text">{{selectedUser.gender.name}}</p>
@@ -78,7 +85,8 @@
             </div>
             <div class="form-row">
               <div class="form-col">
-                <label for="">Symptoms</label>
+                <label for="">Symptoms <span style="margin: 0rem 0rem 0rem .5rem; color: var(--primary-red);"
+                    *ngIf="isEditMode">*</span></label>
               </div>
               <div class="form-col">
                 <div *ngIf="!isEditMode" id="multipleSelect" class="tile-col">
@@ -95,7 +103,7 @@
                   required</small>
               </div>
             </div>
-            <div *ngIf="isEditMode" class="button-row">
+            <div [style.visibility]="!isEditMode? 'hidden': 'visible'" id="button-row" class="button-row">
               <button id="clickButton" *ngIf="!isProcessing" (click)="submitData()"
                 [disabled]="!formData.firstName || !formData.lastName || !formData.gender.id || formData.symptoms.length == 0"
                 class="primary-color-btn">Submit</button>

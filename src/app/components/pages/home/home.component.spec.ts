@@ -66,6 +66,26 @@ describe('HomeComponent', () => {
     }
   ]
 
+  let mockEditResponse = {
+    gender: {
+      id: 1,
+      name: "Male"
+    },
+    firstName: "James",
+    lastName: "Blunt",
+    symptoms: [
+      {
+        id: 1,
+        name: "headache"
+      },
+      {
+        id: 2,
+        name: "nausea"
+      }
+    ],
+    id: 1
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
@@ -124,31 +144,94 @@ describe('HomeComponent', () => {
   });
 
   it('should display uneditable data when edit mode is not called', () => {
-    let firstName = fixture.debugElement.nativeElement.querySelector('#firstName')
     let lastName = fixture.debugElement.nativeElement.querySelector('#lastName')
     let gender = fixture.debugElement.nativeElement.querySelector('#gender')
     let symptoms = fixture.debugElement.nativeElement.querySelector('#multipleSelect')
-    let editButton = fixture.debugElement.nativeElement.querySelector('#clickButton')
+    let buttonRow = fixture.debugElement.nativeElement.querySelector('#button-row')
+    let buttonRowStyle = getComputedStyle(buttonRow);
 
-    expect(firstName.innerText).toContain('James');
     expect(lastName.innerText).toContain('Blunt');
     expect(gender.innerText).toContain('Male');
     expect(symptoms.innerText).toContain('Headache');
-    expect(editButton).toBeFalsy();
+    expect(buttonRowStyle.visibility).toBe('hidden');
   })
-  it('should not display button when edit mode is not called', () => {
-    let editButton = fixture.debugElement.nativeElement.querySelector('#clickButton')
+  it('should not display button and editable fields when edit mode is not called', () => {
+    let firstNameInput = fixture.debugElement.nativeElement.querySelector('#InputInput')
+    let lastNameInput = fixture.debugElement.nativeElement.querySelector('#lastNameInput')
+    let genderInput = fixture.debugElement.nativeElement.querySelector('#editableGender')
+    let symptomsInput = fixture.debugElement.nativeElement.querySelector('#multipleSelectEdit')
+    let buttonRow = fixture.debugElement.nativeElement.querySelector('#button-row')
+    let buttonRowStyle = getComputedStyle(buttonRow);
 
-    expect(editButton).toBeFalsy();
+    expect(buttonRowStyle.visibility).toBe('hidden');
+    expect(firstNameInput).toBeFalsy();
+    expect(lastNameInput).toBeFalsy();
+    expect(genderInput).toBeFalsy();
+    expect(symptomsInput).toBeFalsy();
   })
-  it('should display button when edit mode is called', () => {
-    spyOn(component, 'toggleDropdown')
-    spyOn(component, 'setEditMode')
-
+  it('should display button and editable fields when edit mode is called', async () => {
     let showToggler = fixture.debugElement.nativeElement.querySelector('#showEditOption')
-    showToggler.click()
+    let dropdownMenuItem = fixture.debugElement.nativeElement.querySelector('#dropdown-menu-item')
+    let buttonRow = fixture.debugElement.nativeElement.querySelector('#button-row')
 
-    expect(component.toggleDropdown).toHaveBeenCalled();
+    showToggler.click()
+    dropdownMenuItem.click()
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      let buttonRowStyle = getComputedStyle(buttonRow);
+      let firstNameInput = fixture.debugElement.nativeElement.querySelector('#firstNameInput')
+      let lastNameInput = fixture.debugElement.nativeElement.querySelector('#lastNameInput')
+      let genderInput = fixture.debugElement.nativeElement.querySelector('#editableGender')
+      let symptomsInput = fixture.debugElement.nativeElement.querySelector('#multipleSelectEdit')
+
+      expect(buttonRowStyle.visibility).toBe('visible');
+      expect(firstNameInput).toBeTruthy();
+      expect(lastNameInput).toBeTruthy();
+      expect(genderInput).toBeTruthy();
+      expect(symptomsInput).toBeTruthy();
+    })
+  })
+
+  it('should submit data and update user record successfully if all fields are completed', async () => {
+    let showToggler = fixture.debugElement.nativeElement.querySelector('#showEditOption')
+    let dropdownMenuItem = fixture.debugElement.nativeElement.querySelector('#dropdown-menu-item')
+
+    showToggler.click()
+    dropdownMenuItem.click()
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges()
+      let button = fixture.debugElement.nativeElement.querySelector('#clickButton')
+      spyOn(component, 'submitData');
+      button.click();
+
+      expect(component.submitData).toHaveBeenCalled();
+      expect(component.selectedUser).toEqual(component.formData);
+    })
+  })
+
+  it('should disable button and show validation error message if any editable field is empty', async () => {
+    let showToggler = fixture.debugElement.nativeElement.querySelector('#showEditOption')
+    let dropdownMenuItem = fixture.debugElement.nativeElement.querySelector('#dropdown-menu-item')
+
+    showToggler.click()
+    dropdownMenuItem.click()
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      let firstNameInput = fixture.debugElement.nativeElement.querySelector('#firstNameInput')
+      let button = fixture.debugElement.nativeElement.querySelector('#clickButton')
+
+      firstNameInput.value = '';
+      firstNameInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges()
+      let firstNameInputError = fixture.debugElement.nativeElement.querySelector('#firstNameError')
+
+      expect(button.disabled).toBeTruthy();
+      expect(firstNameInputError).toBeTruthy();
+      expect(firstNameInputError.innerText).toContain('First Name is required');
+    })
   })
 });
 
